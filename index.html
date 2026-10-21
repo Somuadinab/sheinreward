@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shein Reward Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #000000;
+      --off-black:    #111111;
+      --red:          #E53246;
+      --red-dark:     #C0192E;
+      --red-pale:     #FFF0F2;
+      --white:        #FFFFFF;
+      --off-white:    #FAFAFA;
+      --light-gray:   #F3F3F3;
+      --border:       #E8E8E8;
+      --muted:        #888888;
+      --text:         #1A1A1A;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Ticker banner ── */
+    .ticker-wrap {
+      background: var(--red);
+      overflow: hidden;
+      padding: 9px 0;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      animation: ticker 18s linear infinite;
+      width: max-content;
+    }
+
+    .ticker-item {
+      white-space: nowrap;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 32px;
+    }
+
+    .ticker-item::before {
+      content: '✦';
+      margin-right: 32px;
+      opacity: 0.7;
+    }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── Logo block ── */
+    .logo-block {
+      background: var(--black);
+      text-align: center;
+      padding: 44px 20px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid texture */
+    .logo-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .logo-inner { position: relative; z-index: 1; }
+
+    /* SHEIN wordmark */
+    .shein-wordmark {
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .shein-wordmark svg {
+      height: 48px;
+      width: auto;
+    }
+
+    /* S icon badge */
+    .s-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: var(--red);
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+
+    .s-badge span {
+      font-size: 30px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .logo-name {
+      font-size: clamp(40px, 10vw, 62px);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    /* Red underline accent */
+    .logo-underline {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin: 10px auto 12px;
+      border-radius: 2px;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+    }
+
+    /* ── Hero claim ── */
+    .hero-section {
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 20px 32px;
+      text-align: center;
+    }
+
+    .promo-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 3px;
+    }
+
+    .tag-red   { background: var(--red);   color: #fff; }
+    .tag-black { background: var(--black); color: #fff; }
+    .tag-out   { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+
+    .hero-claim {
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .hero-claim strong { color: var(--red); }
+
+    /* ── Steps ── */
+    .steps-section {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 32px 20px 16px;
+    }
+
+    .steps-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .steps-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .step-card:hover {
+      border-color: var(--red);
+      transform: translateX(3px);
+      box-shadow: -3px 0 0 0 var(--red);
+    }
+
+    .step-num {
+      width: 40px; height: 40px; min-width: 40px;
+      border-radius: 10px;
+      background: var(--black);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .step-content { flex: 1; }
+
+    .step-label {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .step-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .step-arrow {
+      color: var(--border);
+      font-size: 16px;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      max-width: 640px;
+      margin: 10px auto 0;
+      padding: 0 20px;
+    }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 17px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      background: var(--red);
+      box-shadow: 0 4px 20px rgba(229,50,70,0.35);
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta-btn:hover {
+      background: var(--red-dark);
+      box-shadow: 0 6px 24px rgba(229,50,70,0.45);
+    }
+
+    .cta-btn:active { transform: scale(0.99); }
+
+    .cta-note {
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      padding: 10px 20px 0;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ── Feature pills ── */
+    .feature-row {
+      max-width: 640px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--light-gray);
+      border-radius: 50px;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .feature-pill .icon { font-size: 13px; }
+
+    /* ── FAQ ── */
+    .faq-section {
+      max-width: 640px;
+      margin: 40px auto 0;
+      padding: 0 20px 52px;
+    }
+
+    .faq-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:has(.faq-q[aria-expanded="true"]) {
+      border-color: var(--red);
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      gap: 14px;
+      transition: color 0.2s;
+    }
+
+    .faq-q:hover { color: var(--red); }
+
+    .faq-q .arrow {
+      width: 17px; height: 17px; min-width: 17px;
+      color: var(--red);
+      transition: transform 0.25s;
+    }
+
+    .faq-q[aria-expanded="true"] .arrow { transform: rotate(180deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-a-inner {
+      padding: 0 18px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* ── Rating ── */
+    .rating-bar {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 20px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .rating-label { font-size: 12px; font-weight: 700; color: var(--text); letter-spacing: 0.06em; text-transform: uppercase; }
+    .stars { display: flex; gap: 3px; }
+    .star {
+      width: 22px; height: 22px;
+      background: #00B67A;
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .star svg { width: 13px; height: 13px; fill: #fff; }
+    .rating-score { font-size: 12px; color: var(--muted); }
+
+    @media (max-width: 480px) {
+      .logo-name { letter-spacing: 0.08em; }
+      .step-card { padding: 15px 16px; }
+      .cta-btn { font-size: 13px; padding: 15px; }
+      .feature-row { gap: 6px; }
+      .feature-pill { font-size: 10.5px; padding: 7px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scrolling ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item">3,500+ People Already Claimed</span>
+      <span class="ticker-item">Exclusive Reward Offer</span>
+      <span class="ticker-item">Limited Time Only</span>
+      <span class="ticker-item">Free $500 Voucher</span>
+      <span class="ticker-item">3,500+ People Already Claimed</span>
+      <span class="ticker-item">Exclusive Reward Offer</span>
+      <span class="ticker-item">Limited Time Only</span>
+      <span class="ticker-item">Free $500 Voucher</span>
+    </div>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo-block">
+    <div class="logo-inner">
+      <div class="s-badge"><span>S</span></div>
+      <div class="logo-name">SHEIN</div>
+      <div class="logo-underline"></div>
+      <div class="logo-sub">Reward Program</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <div class="promo-tags">
+      <span class="tag tag-red">🔥 Hot Deal</span>
+      <span class="tag tag-black">Exclusive</span>
+      <span class="tag tag-out">Members Only</span>
+    </div>
+    <div class="hero-claim">Claim your <strong>$500</strong> SHEIN voucher</div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-section">
+    <div class="steps-header">How it works</div>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-label">Click "Claim Now"</div>
+        <div class="step-sub">Takes less than 10 seconds</div>
+      </div>
+      <span class="step-arrow">›</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-label">Enter your email and basic info</div>
+        <div class="step-sub">Secure & private</div>
+      </div>
+      <span class="step-arrow">›</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-label">Complete 4–5 sponsored deals</div>
+        <div class="step-sub">Quick &amp; easy tasks</div>
+      </div>
+      <span class="step-arrow">›</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-label">Enjoy your $500 voucher!</div>
+        <div class="step-sub">Delivered to your inbox</div>
+      </div>
+      <span class="step-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <a class="cta-btn" href="https://shein.com" target="_blank" rel="noopener">🛍️ Claim Now</a>
+  </div>
+  <p class="cta-note">Completion of sponsored deals is required to claim your voucher.</p>
+
+  <!-- Feature pills -->
+  <div class="feature-row">
+    <div class="feature-pill"><span class="icon">⚡</span> Instant Deals</div>
+    <div class="feature-pill"><span class="icon">🔒</span> Secure</div>
+    <div class="feature-pill"><span class="icon">🎁</span> Free Voucher</div>
+    <div class="feature-pill"><span class="icon">📦</span> Fast Delivery</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        How long do the deals take?
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Most deals can be completed in 5–15 minutes each. Some may require signing up for a free trial or completing a short survey.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        What are deals?
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Deals are offers from our sponsors — things like signing up for a newsletter, trying a free service, or filling out a survey. They're quick and easy to complete.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        How many deals do I have to do?
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">You'll need to complete between 4 and 5 sponsored deals to qualify. The exact number will be shown after you register.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+        When will I receive my voucher?
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">Your $500 SHEIN voucher will be delivered to your email within 7–10 business days after your deals are verified.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rating-bar">
+    <span class="rating-label">Excellent</span>
+    <div class="stars" aria-label="4.9 out of 5 stars">
+      <div class="star"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="star"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="star"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="star"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="star"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+    </div>
+    <span class="rating-score">4.9 / 5</span>
+  </div>
+
+<script>
+  function toggleFaq(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.faq-q').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+      b.nextElementSibling.style.maxHeight = '0';
+    });
+    if (!expanded) {
+      btn.setAttribute('aria-expanded', 'true');
+      const panel = btn.nextElementSibling;
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  }
+</script>
+</body>
+</html>
